@@ -6,19 +6,19 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 16:13:38 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:27:35 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static void free_tmps(char *tmp_1, char *tmp_2);
+static void	free_tmps(char *tmp_1, char *tmp_2);
 
 void	parse_commands(char **av, t_data *data)
 {
 	char	*tmp_1;
 	char	*tmp_2;
-	
+
 	ft_bzero(data, sizeof(t_data));
 	data->infile = av[1];
 	data->commands_1 = ft_split(av[2], ' ');
@@ -39,7 +39,7 @@ void	parse_commands(char **av, t_data *data)
 	free_tmps(tmp_1, tmp_2);
 }
 
-static void free_tmps(char *tmp_1, char *tmp_2)
+static void	free_tmps(char *tmp_1, char *tmp_2)
 {
 	if (tmp_1)
 		free(tmp_1);
@@ -50,7 +50,7 @@ static void free_tmps(char *tmp_1, char *tmp_2)
 void	ft_free(char **res)
 {
 	int	i;
-	
+
 	i = 0;
 	while (res[i])
 	{

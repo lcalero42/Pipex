@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 16:02:57 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/04 17:26:13 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,12 @@ typedef struct s_data
 	char	*outfile;
 	char	**commands_1;
 	char	**commands_2;
+	int		pipefd[2];
+	int		fd_in;
+	int		fd_out;
+	pid_t	pid_1;
+	pid_t	pid_2;
 }	t_data;
-
 
 void	parse_commands(char **av, t_data *data);
 
