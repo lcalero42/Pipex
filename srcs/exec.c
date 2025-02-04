@@ -1,27 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 15:24:39 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 12:43:51 by lcalero          ###   ########.fr       */
+/*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
+/*   Updated: 2025/02/04 12:40:45 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	main(int ac, char **av)
+pid_t	execute(t_data data, char **envp)
 {
-	t_data	data;
-	char 	*envp[] = {NULL};
-
-	if (ac != 5)
-		return (1);
-	parse_commands(av, &data);
-	execute(data, envp);
-	ft_free(data.commands_1);
-	ft_free(data.commands_2);
-	return (0);
+	pid_t 	pid;
+	
+	pid = fork();
+	if (pid == 0)
+	{
+		execve(data.commands_1[0], data.commands_1, envp);
+	}
+	wait(NULL);
+	return (pid);
 }

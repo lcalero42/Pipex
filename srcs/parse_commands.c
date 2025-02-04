@@ -6,43 +6,42 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/03 16:31:48 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/04 12:58:53 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-char **parse_commands(char **av, int ac)
+void	parse_commands(char **av, t_data *data)
 {
-	int	i;
-	char **res;
-	char *tmp;
-
-	i = 0;
-	res = malloc(sizeof(char *) * (ac));
-	tmp = ft_strjoin("/bin/", av[1]);
-	res[i] = ft_strdup(tmp);
-	free(tmp);
-	i++;
-	while (i < ac - 1)
-	{	
-		res[i] = ft_strdup(av[i + 1]);
-		i++;
-	}
-	res[i] = NULL;
-	return (res);
+	char	*tmp_1;
+	char	*tmp_2;
+	
+	ft_bzero(data, sizeof(t_data));
+	data->infile = av[0];
+	data->commands_1 = ft_split(av[2], ' ');
+	tmp_1 = ft_strdup(data->commands_1[0]);
+	free(data->commands_1[0]);
+	data->commands_1[0] = ft_strjoin("/bin/", tmp_1);
+	data->commands_2 = ft_split(av[3], ' ');
+	tmp_2 = ft_strdup(data->commands_2[0]);
+	free(data->commands_2[0]);
+	data->commands_2[0] = ft_strjoin("/bin/", tmp_2);
+	data->outfile = av[4];
+	free(tmp_1);
+	free(tmp_2);
 }
 
 void	ft_free(char **res)
 {
-    int     i;
-    
+	int	i;
+	
 	i = 0;
-    while (res[i])
-    {
-        if (res[i])
-            free(res[i]);
-        i++;
-    }
-    free(res);
+	while (res[i])
+	{
+		if (res[i])
+			free(res[i]);
+		i++;
+	}
+	free(res);
 }
