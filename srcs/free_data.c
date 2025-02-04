@@ -1,39 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   free_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 16:02:57 by lcalero          ###   ########.fr       */
+/*   Created: 2025/02/04 14:54:57 by lcalero           #+#    #+#             */
+/*   Updated: 2025/02/04 14:56:46 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "../includes/pipex.h"
 
-# include "../libft/libft.h"
-# include <sys/types.h>
-# include <sys/wait.h>
-# include <fcntl.h>
-# include <stdio.h>
-
-typedef struct s_data
+void	free_data(t_data *data)
 {
-	char	*infile;
-	char	*outfile;
-	char	**commands_1;
-	char	**commands_2;
-}	t_data;
-
-
-void	parse_commands(char **av, t_data *data);
-
-pid_t	execute(t_data *data, char **envp);
-
-void	ft_free(char **res);
-
-void	free_data(t_data *data);
-
-#endif
+	if (data->commands_1)
+		ft_free(data->commands_1);
+	if (data->commands_2)
+		ft_free(data->commands_2);
+}

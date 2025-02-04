@@ -56,3 +56,6 @@ objects
 
 #executable
 pipex
+
+#tester files
+tets.txt
