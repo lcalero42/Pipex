@@ -6,7 +6,7 @@
 /*   By: luis <luis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/05 02:00:56 by luis             ###   ########.fr       */
+/*   Updated: 2025/02/05 22:42:55 by luis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	exec_p1(t_data *data, char **envp)
 		dup2(data->pipefd[1], 1);
 		close_fds(data);
 		execve(data->commands_1[0], data->commands_1, envp);
+		free_data(data);
 		exit(127);
 	}
 	close(data->pipefd[1]);
@@ -48,6 +49,8 @@ static void	exec_p2(t_data *data, char **envp)
 		dup2(data->fd_out, 1);
 		close_fds(data);
 		execve(data->commands_2[0], data->commands_2, envp);
+		free_data(data);
+		exit(127);
 	}
 	close(data->pipefd[0]);
 }
@@ -55,11 +58,6 @@ static void	exec_p2(t_data *data, char **envp)
 static void	init_data(t_data *data)
 {
 	data->fd_in = open(data->infile, O_RDONLY);
-	if (data->fd_in < 0)
-	{
-		perror("Error reading infile");
-		exit(2);
-	}
 	data->fd_out = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (data->fd_out < 0)
 	{

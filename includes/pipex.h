@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
+/*   By: luis <luis@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 17:26:13 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/05 22:41:25 by luis             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <sys/wait.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+# define PATH "/bin/"
 
 typedef struct s_data
 {
