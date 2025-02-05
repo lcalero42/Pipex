@@ -57,5 +57,8 @@ objects
 #executable
 pipex
 
+#tester
+42_pipex_tester
+
 #tester files
 test.txt
