@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 15:24:39 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 17:26:37 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/10 12:39:36 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac != 5)
 		return (1);
-	parse_commands(av, &data);
+	parse_commands(av, &data, envp);
 	execute(&data, envp);
 	ft_free(data.commands_1);
 	ft_free(data.commands_2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis <luis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/05 22:41:25 by luis             ###   ########.fr       */
+/*   Updated: 2025/02/10 12:39:10 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_data
 	pid_t	pid_2;
 }	t_data;
 
-void	parse_commands(char **av, t_data *data);
+void	parse_commands(char **av, t_data *data, char **envp);
 
 pid_t	execute(t_data *data, char **envp);
 

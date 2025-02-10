@@ -5,7 +5,7 @@ FLAGS = -Wall -Wextra -Werror
 SRCS = srcs/main.c libft/ft_strdup.c libft/ft_strjoin.c \
 	libft/ft_strlen.c srcs/parse_commands.c libft/ft_bzero.c \
 	srcs/exec.c libft/ft_split.c libft/ft_calloc.c \
-	libft/ft_strlcat.c srcs/free_data.c
+	libft/ft_strlcat.c srcs/free_data.c libft/ft_strncmp.c
 HEADERS = includes/pipex.h
 
 OBJS_DIR = objects/
