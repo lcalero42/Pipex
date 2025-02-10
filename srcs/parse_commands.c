@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/10 15:23:29 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/10 16:51:04 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static char	*find_command_path(char *command, char **envp)
 	if (!path_env)
 		return (NULL);
 	paths = ft_split(path_env, ':');
-	if (!path_env)
+	if (!paths)
 		return (NULL);
 	full_path = find_right_path(paths, command);
 	ft_free(paths);

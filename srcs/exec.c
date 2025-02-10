@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/10 15:27:27 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/10 16:50:54 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,35 @@ static void	init_data(t_data *data);
 
 pid_t	execute(t_data *data, char **envp)
 {
+	int	status;
+	int	exit_code;
+	int	pid;
+	
 	init_data(data);
 	exec_p1(data, envp);
 	exec_p2(data, envp);
+	pid = wait(&status);
+	while (pid > 0)
+	{
+		if (pid == data->pid_2)
+			exit_code = status;
+		pid = wait(&status);
+	}
+	if (WIFEXITED(exit_code))
+	{
+		exit_code = WEXITSTATUS(exit_code);
+		if (exit_code != 0)
+		{
+			free_data(data);
+			exit(exit_code);
+		}
+	}
+	else if (WIFSIGNALED(exit_code))
+	{
+		exit_code = 128 + WTERMSIG(exit_code);
+		free_data(data);
+		exit(exit_code);
+	}
 	return (data->pid_2);
 }
 
