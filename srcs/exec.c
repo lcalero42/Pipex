@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luis <luis@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/05 22:42:55 by luis             ###   ########.fr       */
+/*   Updated: 2025/02/10 15:27:27 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	exec_p1(t_data *data, char **envp)
 		close_fds(data);
 		execve(data->commands_1[0], data->commands_1, envp);
 		free_data(data);
+		if (access(data->commands_1[0], X_OK))
+			perror_exit("Permission denied", 126);
 		exit(127);
 	}
 	close(data->pipefd[1]);
@@ -50,6 +52,8 @@ static void	exec_p2(t_data *data, char **envp)
 		close_fds(data);
 		execve(data->commands_2[0], data->commands_2, envp);
 		free_data(data);
+		if (access(data->commands_2[0], X_OK))
+			perror_exit("Permission denied", 126);
 		exit(127);
 	}
 	close(data->pipefd[0]);
@@ -59,17 +63,15 @@ static void	init_data(t_data *data)
 {
 	data->fd_in = open(data->infile, O_RDONLY);
 	data->fd_out = open(data->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (data->fd_in < 0)
+		perror_exit("Error opening infile", 2);
 	if (data->fd_out < 0)
-	{
-		perror("Error opening outfile");
-		exit(3);
-	}
+		perror_exit("Error opening outfile", 3);
 	if (pipe(data->pipefd) == -1)
 	{
-		perror("Pipe failed");
 		close(data->fd_in);
 		close(data->fd_out);
-		exit(1);
+		perror_exit("Error executing pipe", 1);
 	}
 }
 

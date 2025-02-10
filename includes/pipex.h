@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/10 12:39:10 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:23:01 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <fcntl.h>
+# include <errno.h>
 # include <stdio.h>
 
 # define PATH "/bin/"
@@ -41,5 +42,7 @@ pid_t	execute(t_data *data, char **envp);
 void	ft_free(char **res);
 
 void	free_data(t_data *data);
+
+void	perror_exit(const char *message, int exit_code);
 
 #endif

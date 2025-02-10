@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/10 12:38:56 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/10 15:23:29 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,10 @@ void	parse_commands(char **av, t_data *data, char **envp)
 	cmd2_path = find_command_path(data->commands_2[0], envp);
 	if (!cmd1_path || !cmd2_path)
 	{
-		perror("Command not found");
 		free_data(data);
 		free(cmd1_path);
 		free(cmd2_path);
-		exit(127);
+		perror_exit("Command not found", 127);
 	}
 	free(data->commands_1[0]);
 	data->commands_1[0] = cmd1_path;
