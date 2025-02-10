@@ -60,6 +60,7 @@ pipex
 #tester
 pipex_tester
 tester_pipex.sh
+42_pipex_tester
 
 #tester files
 test.txt
