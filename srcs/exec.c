@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/10 17:28:21 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/11 20:04:37 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,11 @@ static void	exec_p1(t_data *data, char **envp)
 		dup2(data->pipefd[1], 1);
 		close_fds(data);
 		execve(data->commands_1[0], data->commands_1, envp);
-		free_data(data);
-		if (access(data->commands_1[0], X_OK))
-			perror_exit("Permission denied", 126);
-		exit(127);
+		if (access(data->commands_1[0], F_OK))
+		{
+			free_data(data);
+			perror_exit("Command not found", 127);
+		}
 	}
 	close(data->pipefd[1]);
 }
@@ -84,10 +85,11 @@ static void	exec_p2(t_data *data, char **envp)
 		dup2(data->fd_out, 1);
 		close_fds(data);
 		execve(data->commands_2[0], data->commands_2, envp);
-		free_data(data);
-		if (access(data->commands_2[0], X_OK))
-			perror_exit("Permission denied", 126);
-			
+		if (access(data->commands_2[0], F_OK))
+		{
+			free_data(data);
+			perror_exit("Command not found", 127);
+		}
 	}
 	close(data->pipefd[0]);
 }
