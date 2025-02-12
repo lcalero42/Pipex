@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 11:56:45 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 12:44:39 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	exec_p1(t_data *data, char **envp)
 		if (data->fd_in < 0)
 		{
 			free_data(data);
-			perror_exit("Error opening infile", 2);
+			perror_exit("Pipex Error", 2);
 		}
 		dup2(data->fd_in, 0);
 		dup2(data->pipefd[1], 1);
@@ -68,7 +68,7 @@ static void	exec_p1(t_data *data, char **envp)
 		if (access(data->commands_1[0], F_OK))
 		{
 			free_data(data);
-			perror_exit("Command not found", 127);
+			perror_exit("Pipex Error", 127);
 		}
 	}
 	close(data->pipefd[1]);
@@ -87,7 +87,7 @@ static void	exec_p2(t_data *data, char **envp)
 		if (data->fd_out < 0)
 		{
 			free_data(data);
-			perror_exit("Error opening outfile", 1);
+			perror_exit("Pipex Error", 1);
 		}
 		dup2(data->pipefd[0], 0);
 		dup2(data->fd_out, 1);
@@ -96,7 +96,7 @@ static void	exec_p2(t_data *data, char **envp)
 		if (access(data->commands_2[0], F_OK))
 		{
 			free_data(data);
-			perror_exit("Command not found", 127);
+			perror_exit("Pipex Error", 127);
 		}
 	}
 	close(data->pipefd[0]);
