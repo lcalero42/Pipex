@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 15:17:34 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:08:01 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 static char	*find_right_path(char **paths, char *command);
 static char	*find_command_path(char *command, char **envp);
 
+/*This function parses the commands that we enter in parameter
+and store them in the "t_data" structure*/
 void	parse_commands(char **av, t_data *data, char **envp)
 {
 	char	*cmd1_path;
@@ -33,6 +35,8 @@ void	parse_commands(char **av, t_data *data, char **envp)
 	data->outfile = av[4];
 }
 
+/*This function finds the path in te environment related
+to the command the user typed*/
 static char	*find_command_path(char *command, char **envp)
 {
 	int		i;
@@ -60,6 +64,8 @@ static char	*find_command_path(char *command, char **envp)
 	return (full_path);
 }
 
+/*This function searches in all the paths of the PATH variable
+to find which path has the command we want to execute*/
 static char	*find_right_path(char **paths, char *command)
 {
 	char	*full_path;
@@ -81,6 +87,8 @@ static char	*find_right_path(char **paths, char *command)
 	return (full_path);
 }
 
+/*This function frees a 2D string (allocated by
+ft_plit for example)*/
 void	ft_free(char **res)
 {
 	int	i;

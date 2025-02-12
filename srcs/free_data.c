@@ -6,12 +6,14 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 14:54:57 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/04 14:56:46 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:05:01 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
+/*This function frees the data that we allocated
+in the data structure*/
 void	free_data(t_data *data)
 {
 	if (data->commands_1)

@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 15:58:21 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:04:26 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,35 +17,32 @@ static void	exec_p1(t_data *data, char **envp);
 static void	exec_p2(t_data *data, char **envp);
 static void	init_data(t_data *data);
 
+/*This function is the praent process that will execute
+the two child process and wait for them to finish to exit
+with the right exit code (the exit code of pid_2)*/
 pid_t	execute(t_data *data, char **envp)
 {
 	int	status;
 	int	exit_code;
-	int	pid;
 
 	init_data(data);
 	exec_p1(data, envp);
 	exec_p2(data, envp);
-	pid = wait(&status);
-	while (pid > 0)
+	waitpid(data->pid_1, NULL, 0);
+	if (waitpid(data->pid_2, &status, 0) > 0)
 	{
-		if (pid == data->pid_2)
-			exit_code = status;
-		pid = wait(&status);
+		if (WIFEXITED(status))
+			exit_code = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			exit_code = 128 + WTERMSIG(status);
 	}
-	if (WIFSIGNALED(exit_code))
-	{
-		exit_code = 128 + WTERMSIG(exit_code);
-		free_data(data);
-		exit(exit_code);
-	}
-	else if (WIFEXITED(exit_code))
-		exit_code = WEXITSTATUS(exit_code);
 	free_data(data);
 	exit(exit_code);
 	return (data->pid_2);
 }
 
+/*This function executes the first command in the first
+child process and writes its result in the pipe*/
 static void	exec_p1(t_data *data, char **envp)
 {
 	data->pid_1 = fork();
@@ -70,6 +67,8 @@ static void	exec_p1(t_data *data, char **envp)
 	close(data->pipefd[1]);
 }
 
+/*This function executes the second command in the second
+child process and writes its result in the outfile*/
 static void	exec_p2(t_data *data, char **envp)
 {
 	data->pid_2 = fork();
@@ -94,6 +93,9 @@ static void	exec_p2(t_data *data, char **envp)
 	close(data->pipefd[0]);
 }
 
+/*This function initialize the data that we need in
+all the processes and create the pipe that we will need
+to make the data flow between processes*/
 static void	init_data(t_data *data)
 {
 	data->fd_in = open(data->infile, O_RDONLY);
@@ -107,6 +109,7 @@ static void	init_data(t_data *data)
 	}
 }
 
+/*This function closes all the file descriptors*/
 static void	close_fds(t_data *data)
 {
 	close(data->fd_in);

@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 15:27:35 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 17:11:52 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <fcntl.h>
 # include <errno.h>
 # include <stdio.h>
-
-# define PATH "/bin/"
 
 typedef struct s_data
 {
@@ -35,16 +33,19 @@ typedef struct s_data
 	pid_t	pid_2;
 }	t_data;
 
+/*---Main pipex logic functions---*/
 void	parse_commands(char **av, t_data *data, char **envp);
 
 pid_t	execute(t_data *data, char **envp);
 
-void	ft_free(char **res);
-
-void	free_data(t_data *data);
-
+/*---Error checking functions---*/
 void	perror_exit(const char *message, int exit_code);
 
 void	check_access(char *command, t_data *data);
+
+/*---Cleaning functions---*/
+void	ft_free(char **res);
+
+void	free_data(t_data *data);
 
 #endif
