@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/11 20:02:42 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 11:31:57 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ static char	*find_right_path(char **paths, char *command)
 		free(full_path);
 		i++;
 	}
-	return (NULL);
+	full_path = ft_strdup(command);
+	return (full_path);
 }
 
 void	ft_free(char **res)
