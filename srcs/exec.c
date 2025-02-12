@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 15:31:32 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:58:21 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	exec_p1(t_data *data, char **envp)
 		if (data->fd_in < 0)
 		{
 			free_data(data);
-			perror_exit("Pipex Error", 2);
+			perror_exit("Pipex Error", EXIT_FAILURE);
 		}
 		dup2(data->fd_in, 0);
 		dup2(data->pipefd[1], 1);
@@ -83,7 +83,7 @@ static void	exec_p2(t_data *data, char **envp)
 		if (data->fd_out < 0)
 		{
 			free_data(data);
-			perror_exit("Pipex Error", 1);
+			perror_exit("Pipex Error", EXIT_FAILURE);
 		}
 		dup2(data->pipefd[0], 0);
 		dup2(data->fd_out, 1);

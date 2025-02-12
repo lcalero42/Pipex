@@ -6,11 +6,10 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/10 13:46:57 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 15:32:18 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:53:46 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "../includes/pipex.h"
 
 void	perror_exit(const char *message, int exit_code)
@@ -22,9 +21,6 @@ void	perror_exit(const char *message, int exit_code)
 		exit(exit_code);
 		return ;
 	}
-	ft_putstr_fd((char *)message, STDERR_FILENO);
-	write(STDERR_FILENO, ": ", 2);
-	ft_putstr_fd((char *)strerror(errno), STDERR_FILENO);
-	write(STDERR_FILENO, "\n", 1);
+	perror(message);
 	exit(exit_code);
 }
