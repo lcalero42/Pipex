@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/11 20:04:37 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 11:56:45 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ pid_t	execute(t_data *data, char **envp)
 	int	status;
 	int	exit_code;
 	int	pid;
-	
+
 	init_data(data);
 	exec_p1(data, envp);
 	exec_p2(data, envp);
@@ -40,17 +40,20 @@ pid_t	execute(t_data *data, char **envp)
 		exit(exit_code);
 	}
 	else if (WIFEXITED(exit_code))
-	{
 		exit_code = WEXITSTATUS(exit_code);
-		free_data(data);
-		exit(exit_code);
-	}
+	free_data(data);
+	exit(exit_code);
 	return (data->pid_2);
 }
 
 static void	exec_p1(t_data *data, char **envp)
 {
 	data->pid_1 = fork();
+	if (data->pid_1 == -1)
+	{
+		free_data(data);
+		exit(1);
+	}
 	if (data->pid_1 == 0)
 	{
 		if (data->fd_in < 0)
@@ -74,6 +77,11 @@ static void	exec_p1(t_data *data, char **envp)
 static void	exec_p2(t_data *data, char **envp)
 {
 	data->pid_2 = fork();
+	if (data->pid_2 == -1)
+	{
+		free_data(data);
+		exit(1);
+	}
 	if (data->pid_2 == 0)
 	{
 		if (data->fd_out < 0)
