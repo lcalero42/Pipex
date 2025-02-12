@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 12:44:39 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:31:32 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	exec_p1(t_data *data, char **envp)
 	if (data->pid_1 == -1)
 	{
 		free_data(data);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (data->pid_1 == 0)
 	{
@@ -65,11 +65,7 @@ static void	exec_p1(t_data *data, char **envp)
 		dup2(data->pipefd[1], 1);
 		close_fds(data);
 		execve(data->commands_1[0], data->commands_1, envp);
-		if (access(data->commands_1[0], F_OK))
-		{
-			free_data(data);
-			perror_exit("Pipex Error", 127);
-		}
+		check_access(data->commands_1[0], data);
 	}
 	close(data->pipefd[1]);
 }
@@ -80,7 +76,7 @@ static void	exec_p2(t_data *data, char **envp)
 	if (data->pid_2 == -1)
 	{
 		free_data(data);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	if (data->pid_2 == 0)
 	{
@@ -93,11 +89,7 @@ static void	exec_p2(t_data *data, char **envp)
 		dup2(data->fd_out, 1);
 		close_fds(data);
 		execve(data->commands_2[0], data->commands_2, envp);
-		if (access(data->commands_2[0], F_OK))
-		{
-			free_data(data);
-			perror_exit("Pipex Error", 127);
-		}
+		check_access(data->commands_2[0], data);
 	}
 	close(data->pipefd[0]);
 }
@@ -111,7 +103,7 @@ static void	init_data(t_data *data)
 		close(data->fd_in);
 		close(data->fd_out);
 		free_data(data);
-		perror_exit("Error executing pipe", 1);
+		perror_exit("Error executing pipe", EXIT_FAILURE);
 	}
 }
 

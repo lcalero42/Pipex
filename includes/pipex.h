@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 14:37:47 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/10 15:23:01 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/12 15:27:35 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ void	ft_free(char **res);
 void	free_data(t_data *data);
 
 void	perror_exit(const char *message, int exit_code);
+
+void	check_access(char *command, t_data *data);
 
 #endif

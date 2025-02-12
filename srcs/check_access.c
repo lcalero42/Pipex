@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_error.c                                      :+:      :+:    :+:   */
+/*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/10 13:46:57 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 15:32:18 by lcalero          ###   ########.fr       */
+/*   Created: 2025/02/12 15:24:45 by lcalero           #+#    #+#             */
+/*   Updated: 2025/02/12 15:27:22 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string.h>
 #include "../includes/pipex.h"
 
-void	perror_exit(const char *message, int exit_code)
+void	check_access(char *command, t_data *data)
 {
-	if (exit_code == 127)
+	if (access(command, F_OK))
 	{
-		ft_putstr_fd("Pipex Error: Command not found\n",
-			STDERR_FILENO);
-		exit(exit_code);
-		return ;
+		free_data(data);
+		perror_exit("Pipex Error", 127);
 	}
-	ft_putstr_fd((char *)message, STDERR_FILENO);
-	write(STDERR_FILENO, ": ", 2);
-	ft_putstr_fd((char *)strerror(errno), STDERR_FILENO);
-	write(STDERR_FILENO, "\n", 1);
-	exit(exit_code);
+	else if (access(command, X_OK))
+	{
+		free_data(data);
+		perror_exit("Pipex Error", 126);
+	}
+	exit(EXIT_FAILURE);
 }

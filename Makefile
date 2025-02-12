@@ -7,7 +7,7 @@ SRCS = srcs/main.c libft/ft_strdup.c libft/ft_strjoin.c \
 	srcs/exec.c libft/ft_split.c libft/ft_calloc.c \
 	libft/ft_strlcat.c srcs/free_data.c libft/ft_strncmp.c \
 	srcs/print_error.c libft/ft_putstr_fd.c libft/ft_putnbr_fd.c \
-	libft/ft_putchar_fd.c
+	libft/ft_putchar_fd.c srcs/check_access.c
 HEADERS = includes/pipex.h
 
 OBJS_DIR = objects/
