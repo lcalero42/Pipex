@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:07:32 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 17:08:01 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/13 14:31:51 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static char	*find_command_path(char *command, char **envp)
 	char	**paths;
 	char	*full_path;
 
+	path_env = NULL;
 	i = 0;
 	while (envp[i])
 	{

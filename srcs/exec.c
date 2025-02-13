@@ -6,7 +6,7 @@
 /*   By: lcalero <lcalero@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 11:29:29 by lcalero           #+#    #+#             */
-/*   Updated: 2025/02/12 17:04:26 by lcalero          ###   ########.fr       */
+/*   Updated: 2025/02/13 15:19:13 by lcalero          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ pid_t	execute(t_data *data, char **envp)
 	int	status;
 	int	exit_code;
 
+	exit_code = 0;
 	init_data(data);
 	exec_p1(data, envp);
 	exec_p2(data, envp);
@@ -49,7 +50,7 @@ static void	exec_p1(t_data *data, char **envp)
 	if (data->pid_1 == -1)
 	{
 		free_data(data);
-		exit(EXIT_FAILURE);
+		perror_exit("Pipex Error", EXIT_FAILURE);
 	}
 	if (data->pid_1 == 0)
 	{
@@ -75,7 +76,7 @@ static void	exec_p2(t_data *data, char **envp)
 	if (data->pid_2 == -1)
 	{
 		free_data(data);
-		exit(EXIT_FAILURE);
+		perror_exit("Pipex Error", EXIT_FAILURE);
 	}
 	if (data->pid_2 == 0)
 	{
